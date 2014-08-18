@@ -50,7 +50,12 @@ Notify a change.
 Sample Usages
 ---
 
-use with tomcat:
+use with WAS:
+* start WAS such as Tomcat, Nginx, IIS first.
+* ```gulp watch```
+* use ```Ctrl + c``` for exiting from watch.
+** all the files should be saved before ```Ctrl + c```, because Livereload-for-was load source code and rewrite them.
+** use VCS such as git, svn after ```Ctrl + c```, because the livereload script is included in all source code.
 
 ```javascript
 // watch
@@ -102,8 +107,10 @@ gulp.task('removeLivereloadScript', function () {
             message : 'livereload script removed'
         }));
 });
-
 ```
+
+
+
 
 License
 ---
