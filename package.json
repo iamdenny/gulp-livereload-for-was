@@ -1,24 +1,28 @@
 {
-  "name": "gulp-livereload",
-  "description": "Gulp plugin for livereload.",
-  "version": "2.1.0",
-  "main": "gulp-livereload.js",
+  "name": "gulp-livereload-for-was",
+  "description": "Live reload for WAS as gulp plugin.",
+  "version": "0.1.0",
+  "main": "gulp-livereload-for-was.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/vohof/gulp-livereload.git"
+    "url": "git://github.com/iamdenny/gulp-livereload-for-was.git"
   },
   "license": "MIT",
   "keywords": [
     "gulpplugin",
-    "livereload"
+    "livereload",
+    "was",
+    "jsp",
+    "tomcat"
   ],
   "dependencies": {
     "gulp-util": "~2.2.16",
     "lodash.assign": "^2.4.1",
-    "tiny-lr": "^0.0.7"
+    "tiny-lr": "^0.0.7",
+    "through2": "~0.6.1"
   },
   "devDependencies": {
     "should": "^3.3.0",
