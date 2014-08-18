@@ -1,7 +1,7 @@
 gulp-livereload-for-was
 ===
 
-[![Build Status](http://img.shields.io/travis/vohof/gulp-livereload/master.svg?style=flat)](https://travis-ci.org/vohof/gulp-livereload) ![Livereload downloads ](http://img.shields.io/npm/dm/gulp-livereload.svg?style=flat) [![MIT Licensed](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](#license)
+[![Build Status](http://img.shields.io/travis/iamdenny/gulp-livereload-for-was/master.svg?style=flat)](https://travis-ci.org/iamdenny/gulp-livereload-for-was) ![Livereload downloads ](http://img.shields.io/npm/dm/gulp-livereload-for-was.svg?style=flat) [![MIT Licensed](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](#license)
 
 A [gulp](https://github.com/gulpjs/gulp) plugin for livereload best used with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei).
 
