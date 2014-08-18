@@ -1,7 +1,7 @@
 {
   "name": "gulp-livereload-for-was",
   "description": "Live reload for WAS as gulp plugin.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "gulp-livereload-for-was.js",
   "scripts": {
     "test": "mocha"
