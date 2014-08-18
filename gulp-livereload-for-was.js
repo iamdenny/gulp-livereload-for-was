@@ -5,10 +5,15 @@ var gutil = require('gulp-util'),
     tinylr = require('tiny-lr'),
     merge = require('lodash.merge'),
     Transform = require('stream').Transform,
-    magenta = gutil.colors.magenta;
+    magenta = gutil.colors.magenta,
+    through = require('through2');
 
-var through = require('through2');
-
+/**
+ * module.exports
+ * @param server
+ * @param opts
+ * @returns {Transform}
+ */
 module.exports = exports = function (server, opts) {
     var reload = new Transform({ objectMode:true });
 
@@ -37,11 +42,16 @@ exports.options = { auto: true };
 exports.servers = {};
 
 /**
- * lr.listen()
- * lr.listen(server)
- * lr.listen(port)
+ * exprots.listen
+ * @param server
+ * @param opts
+ * @returns {*}
+ *
+ * @example
+ *  livereloadForWas.listen()
+ *  livereloadForWas.listen(server)
+ *  livereloadForWas.listen(port)
  */
-
 exports.listen = function(server, opts) {
     if (server !== null &&
         typeof server === 'object' &&
@@ -56,7 +66,7 @@ exports.listen = function(server, opts) {
     server = server || 35729;
 
     if (typeof server === 'number') {
-        var port = server;
+        var port = exports.port = server;
 
         if (exports.servers[port]) {
             return exports.servers[port];
@@ -81,11 +91,15 @@ exports.listen = function(server, opts) {
 };
 
 /**
- * lr.changed(filepath)
- * lr.changed(filepath, server)
- * lr.changed(filepath, port)
+ * export.changed
+ * @param filePath
+ * @param server
+ *
+ * @example
+ *  livereloadForWas.changed(filepath)
+ *  livereloadForWas.changed(filepath, server)
+ *  livereloadForWas.changed(filepath, port)
  */
-
 exports.changed = function(filePath, server) {
     server = exports.listen(server);
     filePath = (filePath) ? filePath.hasOwnProperty('path') ? filePath.path : filePath : '*';
@@ -101,17 +115,32 @@ exports.changed = function(filePath, server) {
 
 exports.middleware = tinylr.middleware;
 
-// 여기서부터 추가
-
+/**
+ * prepend
+ * @param w
+ * @param s
+ * @returns {*}
+ */
 function prepend(w, s) {
     return s + w;
 }
 
+/**
+ * append
+ * @param w
+ * @param s
+ * @returns {*}
+ */
 function append(w, s) {
     return w + s;
 }
 
-var insertScriptforWas = function (body, opt) {
+/**
+ * insert script for was
+ * @param contents
+ * @returns {*}
+ */
+var insertScriptForWas = function (contents) {
     var rules = [{
         match: /<\/body>/,
         fn: prepend
@@ -122,38 +151,40 @@ var insertScriptforWas = function (body, opt) {
         match: /<\!DOCTYPE.+>/,
         fn: append
     }];
-    var port = 35729;
+    var port = exports.port;
     var src =  "' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':" + port + "/livereload.js?snipver=1";
     var snippet = "<!-- livereload -->\n<script type=\"text/javascript\">document.write('<script src=\"" + src + "\" type=\"text/javascript\"><\\/script>')</script>\n<!-- endlivereload -->";
 
-    var _body = body;
+    var _contents = contents;
     rules.some(function(rule) {
-        if (rule.match.test(body)) {
-            _body = body.replace(rule.match, function(w) {
+        if (rule.match.test(contents)) {
+            _contents = contents.replace(rule.match, function(w) {
                 return rule.fn(w, snippet);
             });
             return true;
         }
         return false;
     });
-    return _body;
+    return _contents;
 };
 
-
-exports.insertScriptforWas = function (opt) {
-    opt = opt || {};
-
+/**
+ * exports.insertScriptForWas
+ * @returns {*}
+ */
+exports.insertScriptForWas = function () {
     var th = through.obj(function(file, enc, cb) {
         if (file.isStream()) {
             this.emit('error', new PluginError('gulp-livereload', 'Streams are not supported!'));
             return cb();
         }
         if (file.isNull()) {
-            file.contents = Buffer.concat([prefixText, file.contents]);
+            this.push(file); // Do nothing if no contents
+            return cb();
         }
 
         try {
-            file.contents = new Buffer(insertScriptforWas(file.contents.toString(), opt));
+            file.contents = new Buffer(insertScriptForWas(file.contents.toString()));
             this.push(file);
         } catch (err) {
             this.emit('error', new gutil.PluginError('gulp-<%= pluginName %>', err));
@@ -166,7 +197,12 @@ exports.insertScriptforWas = function (opt) {
     return th;
 };
 
-var removeScriptforWas = function (contents, opt) {
+/**
+ * remove script for was
+ * @param contents
+ * @returns {string}
+ */
+var removeScriptForWas = function (contents) {
     var startReg = /<!--\s*livereload\s*-->/gim;
     var endReg = /<!--\s*endlivereload\s*-->/gim;
 
@@ -186,18 +222,23 @@ var removeScriptforWas = function (contents, opt) {
     return html.join('');;
 };
 
-exports.removeScriptforWas = function (opt) {
+/**
+ * exports.removeScriptForWas
+ * @returns {*}
+ */
+exports.removeScriptForWas = function () {
     var th = through.obj(function(file, enc, cb) {
         if (file.isStream()) {
             this.emit('error', new PluginError('gulp-livereload', 'Streams are not supported!'));
             return cb();
         }
         if (file.isNull()) {
-            file.contents = Buffer.concat([prefixText, file.contents]);
+            this.push(file); // Do nothing if no contents
+            return cb();
         }
 
         try {
-            file.contents = new Buffer(removeScriptforWas(file.contents.toString(), opt));
+            file.contents = new Buffer(removeScriptForWas(file.contents.toString()));
             this.push(file);
         } catch (err) {
             this.emit('error', new gutil.PluginError('gulp-<%= pluginName %>', err));
@@ -210,11 +251,12 @@ exports.removeScriptforWas = function (opt) {
     return th;
 };
 
+/**
+ * exports.exit
+ * @returns {*}
+ */
 exports.exit = function () {
-
-    var th = through.obj(function(file, enc, cb) {
+    return through.obj(function(file, enc, cb) {
         process.exit(0);
-
     });
-    return th;
 };
