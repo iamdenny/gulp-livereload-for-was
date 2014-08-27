@@ -1,7 +1,12 @@
 gulp-livereload-for-was
 ===
 
-[![Build Status](http://img.shields.io/travis/iamdenny/gulp-livereload-for-was/master.svg?style=flat)](https://travis-ci.org/iamdenny/gulp-livereload-for-was) [![Livereload downloads](http://img.shields.io/npm/dm/gulp-livereload-for-was.svg?style=flat)](https://www.npmjs.org/package/gulp-livereload-for-was) [![MIT Licensed](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](#license)
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Coverage Status][coveralls-image]][coveralls-url]
+[![Dependency Status][depstat-image]][depstat-url]
+[![Livereload downloads][npm-download-image]][npm-download-url]
+[![MIT Licensed][license-image]](#license)
 
 A [gulp](https://github.com/gulpjs/gulp) plugin for livereload best used with the [livereload chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei).
 
@@ -128,3 +133,22 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+[npm-url]: https://npmjs.org/package/gulp-livereload-for-was
+[npm-image]: https://badge.fury.io/js/gulp-livereload-for-was.png
+
+[travis-url]: http://travis-ci.org/iamdenny/gulp-livereload-for-was
+[travis-image]: https://secure.travis-ci.org/iamdenny/gulp-livereload-for-was.png?branch=master
+
+[coveralls-url]: https://coveralls.io/r/iamdenny/gulp-livereload-for-was?branch=master
+[coveralls-image]: https://img.shields.io/coveralls/iamdenny/gulp-livereload-for-was.svg
+
+[depstat-url]: https://david-dm.org/iamdenny/gulp-livereload-for-was
+[depstat-image]: https://david-dm.org/iamdenny/gulp-livereload-for-was.png
+
+[npm-download-url]: https://www.npmjs.org/package/gulp-livereload-for-was
+[npm-download-image]: http://img.shields.io/npm/dm/gulp-livereload-for-was.svg?style=flat
+
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
