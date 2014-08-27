@@ -27,7 +27,7 @@
     },
     "devDependencies": {
         "should": "^3.3.0",
-        "mocha": "^1.20.0",
+        "mocha": "*",
         "sinon": "^1.10.2",
         "pem": "^1.4.0",
         "coveralls": "*",
